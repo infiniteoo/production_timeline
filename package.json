@@ -1,0 +1,32 @@
+{
+  "name": "production_timeline",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"nodemon server/index.js\" \"npm run dev\"",
+    "client": "npm run dev",
+    "server": "nodemon server/index.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start-client": "npm start",
+    "start-server": "nodemon server/index.js"
+  },
+  "dependencies": {
+    "autoprefixer": "10.4.15",
+    "axios": "^1.5.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "next": "13.4.19",
+    "postcss": "8.4.29",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "read-excel-file": "^5.6.1",
+    "tailwindcss": "3.3.3",
+    "xlsx": "^0.18.5",
+    "xlsx-populate": "^1.21.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.0.1"
+  }
+}
