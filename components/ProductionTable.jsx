@@ -6,42 +6,63 @@ const ProductionTable = ({
   timelineC,
   dateAndTimeline,
 }) => {
-  const [hoveredRow, setHoveredRow] = useState(null);
-
-  const handleRowHover = (rowId) => {
-    setHoveredRow(rowId);
-  };
-
-  const clearHover = () => {
-    setHoveredRow(null);
-  };
-
   // Define a function to highlight matching rows in other tables
   const highlightMatchingRows = (row0, row1) => {
-    console.log("row0", row0, "row1", row1);
-    const tables = [timelineA, timelineB, timelineC];
+    const tables = [dateAndTimeline, timelineA, timelineB, timelineC];
     tables.forEach((table) => {
       table.forEach((row, index) => {
-        if (row[0] === row0 && row[1] === row1) {
+        if (
+          row[0].trim().toLowerCase() === row0.trim().toLowerCase() &&
+          row[1].trim().toLowerCase() === row1.trim().toLowerCase()
+        ) {
+          console.log("MATCH FOUND");
+          console.log(document.querySelectorAll(`.table-row-${index}`));
+          console.log(
+            "row[0]",
+            row[0],
+            "row[1]",
+            row[1],
+            "row0",
+            row0,
+            "row1",
+            row1
+          );
           // Apply a class to highlight the matching row
-          const trElement = document.getElementById(`table-row-${index}`);
-          if (trElement) {
-            trElement.classList.add("bg-yellow-200");
-          }
+          const trElements = document.querySelectorAll(`.table-row-${index}`);
+          trElements.forEach((trElement) => {
+            trElement.classList.add("bg-yellow-300");
+          });
         }
       });
     });
   };
 
   // Define a function to clear highlights in other tables
-  const clearMatchingRowHighlights = () => {
-    const tables = [timelineA, timelineB, timelineC];
+  const clearMatchingRowHighlights = (row0, row1) => {
+    const tables = [dateAndTimeline, timelineA, timelineB, timelineC];
     tables.forEach((table) => {
       table.forEach((row, index) => {
-        // Remove the highlight class
-        const trElement = document.getElementById(`table-row-${index}`);
-        if (trElement) {
-          trElement.classList.remove("bg-yellow-200");
+        if (
+          row[0].trim().toLowerCase() === row0.trim().toLowerCase() &&
+          row[1].trim().toLowerCase() === row1.trim().toLowerCase()
+        ) {
+          console.log("MATCH FOUND");
+          console.log(document.querySelectorAll(`.table-row-${index}`));
+          console.log(
+            "row[0]",
+            row[0],
+            "row[1]",
+            row[1],
+            "row0",
+            row0,
+            "row1",
+            row1
+          );
+          // Apply a class to highlight the matching row
+          const trElements = document.querySelectorAll(`.table-row-${index}`);
+          trElements.forEach((trElement) => {
+            trElement.classList.remove("bg-yellow-300");
+          });
         }
       });
     });
@@ -69,16 +90,14 @@ const ProductionTable = ({
                     <tr
                       key={index}
                       id={`table-row-${index}`}
-                      className={`${
+                      className={`table-row-${index} ${
                         index % 2 === 0 ? "bg-gray-100" : "bg-white"
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
-                        handleRowHover(row[0] + row[1]);
                         highlightMatchingRows(row[0], row[1]);
                       }}
                       onMouseLeave={() => {
-                        clearHover();
-                        clearMatchingRowHighlights();
+                        clearMatchingRowHighlights(row[0], row[1]);
                       }}
                     >
                       <td className="px-2 py-1 align-top">{row[0]}</td>
@@ -107,7 +126,8 @@ const ProductionTable = ({
                   {timelineA.map((row, index) => (
                     <tr
                       key={index}
-                      className={`${
+                      id={`table-row-${index}`}
+                      className={`table-row-${index} ${
                         index % 2 === 0
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
@@ -117,10 +137,11 @@ const ProductionTable = ({
                             }`
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
-                        setHoveredRow(row[0] + row[1]);
-                        console.log(row);
+                        highlightMatchingRows(row[0], row[1]);
                       }}
-                      onMouseLeave={() => setHoveredRow(null)}
+                      onMouseLeave={() => {
+                        clearMatchingRowHighlights(row[0], row[1]);
+                      }}
                     >
                       <td
                         className={`px-2 py-1 align-top w-1/6 ${
@@ -157,7 +178,8 @@ const ProductionTable = ({
                   {timelineB.map((row, index) => (
                     <tr
                       key={index}
-                      className={`${
+                      id={`table-row-${index}`}
+                      className={`table-row-${index} ${
                         index % 2 === 0
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
@@ -167,10 +189,11 @@ const ProductionTable = ({
                             }`
                       } hover:bg-yellow-200 cursor-pointer `}
                       onMouseEnter={() => {
-                        setHoveredRow(row[0] + row[1]);
-                        console.log(row);
+                        highlightMatchingRows(row[0], row[1]);
                       }}
-                      onMouseLeave={() => setHoveredRow(null)}
+                      onMouseLeave={() => {
+                        clearMatchingRowHighlights(row[0], row[1]);
+                      }}
                     >
                       <td className={`px-2 py-1 align-top w-1/6 `}>{row[3]}</td>
                       <td className="px-2 py-1 pl-10 align-top w-4/6">
@@ -201,7 +224,8 @@ const ProductionTable = ({
                   {timelineC.map((row, index) => (
                     <tr
                       key={index}
-                      className={`${
+                      id={`table-row-${index}`}
+                      className={`table-row-${index} ${
                         index % 2 === 0
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
@@ -211,10 +235,11 @@ const ProductionTable = ({
                             }`
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
-                        setHoveredRow(row[0] + row[1]);
-                        console.log(row);
+                        highlightMatchingRows(row[0], row[1]);
                       }}
-                      onMouseLeave={() => setHoveredRow(null)}
+                      onMouseLeave={() => {
+                        clearMatchingRowHighlights(row[0], row[1]);
+                      }}
                     >
                       <td
                         className={`px-2 py-1 align-top w-1/12 ${
