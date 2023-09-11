@@ -1,7 +1,13 @@
 import React from "react";
 import "./StatTracker.css"; // Import the CSS for styling
 
-const StatTracker = () => {
+const StatTracker = ({
+  timelineA,
+  timelineB,
+  timelineC,
+  dateAndTimeline,
+  setUnitsThisHour,
+}) => {
   return (
     <div className="stat-tracker mb-10 h-40">
       {/* Content of the StatTracker */}

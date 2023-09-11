@@ -10,43 +10,12 @@ const ProductionTable = ({
   // Create a ref to store the matched row element
   const matchedRowRef = useRef(null);
 
-  // create useeffect on component start
-
-  useEffect(() => {
-    const tables = [dateAndTimeline, timelineA, timelineB, timelineC];
-    tables.forEach((table) => {
-      table.forEach((row, index) => {
-        const rowDate = new Date(row[0]);
-
-        console.log("row[1]", row[1]);
-        console.log("currentHour", currentHour);
-
-        if (
-          rowDate.toDateString() === fakeDate.toDateString() &&
-          row[1] === currentHour
-        ) {
-          console.log("MATCH FOUND");
-          // Apply a class to highlight the matching row
-          const trElements = document.querySelectorAll(`.table-row-${index}`);
-          trElements.forEach((trElement) => {
-            trElement.classList.add("bg-green-400");
-            trElement.classList.add("font-bold");
-          });
-
-          // Store the matched row element in the ref
-          matchedRowRef.current = trElements[0];
-
-          // Scroll to the matched row element and center it
-          if (matchedRowRef.current) {
-            matchedRowRef.current.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-            });
-          }
-        }
-      });
-    });
-  }, [dateAndTimeline]);
+  // create a state that keeps track of what product, item number and quantity is being produced on each of the three timelines
+  const [unitsThisHour, setUnitsThisHour] = useState({
+    timelineA: { item: "", product: "", qty: "" },
+    timelineB: { item: "", product: "", qty: "" },
+    timelineC: { item: "", product: "", qty: "" },
+  });
 
   // define current hour
   const currentHour =
@@ -54,7 +23,62 @@ const ProductionTable = ({
 
   // define fake date as 08/29/2023
   const fakeDate = new Date(2023, 7, 29);
-  console.log("fakeDate", fakeDate);
+
+  // create useeffect on component start
+
+  useEffect(() => {
+    const updatedUnitsThisHour = { ...unitsThisHour };
+    const tables = [dateAndTimeline, timelineA, timelineB, timelineC];
+
+    tables.forEach((table, tableIndex) => {
+      let totalQty = 0; // Initialize the total quantity for this timeline
+
+      table.forEach((row, rowIndex) => {
+        const rowDate = new Date(row[0]);
+
+        if (
+          rowDate.toDateString() === fakeDate.toDateString() &&
+          row[1] === currentHour
+        ) {
+          // Apply a class to highlight the matching row
+          const trElements = document.querySelectorAll(
+            `.table-row-${rowIndex}`
+          );
+          trElements.forEach((trElement) => {
+            trElement.classList.add("bg-green-300");
+            trElement.classList.add("font-bold");
+          });
+          // Store the matched row element in the ref
+          matchedRowRef.current = trElements[0];
+          // Scroll to the matched row element and center it
+          if (matchedRowRef.current) {
+            matchedRowRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }
+
+          // Update the total quantity for this timeline
+          totalQty += row[5];
+
+          // Set the values in the unitsThisHour state based on the current timeline
+          updatedUnitsThisHour[
+            `timeline${String.fromCharCode(65 + tableIndex)}`
+          ] = {
+            item: row[3],
+            product: row[4],
+            qty: row[5],
+            totalQty, // Add the totalQty to the state
+          };
+
+          console.log(updatedUnitsThisHour);
+        }
+      });
+    });
+
+    // Set the updated state with totalQty
+    setUnitsThisHour(updatedUnitsThisHour);
+  }, [dateAndTimeline]);
 
   // Define a function to highlight matching rows in other tables
   const highlightMatchingRows = (row0, row1) => {
@@ -65,18 +89,6 @@ const ProductionTable = ({
           row[0].trim().toLowerCase() === row0.trim().toLowerCase() &&
           row[1].trim().toLowerCase() === row1.trim().toLowerCase()
         ) {
-          console.log("MATCH FOUND");
-          console.log(document.querySelectorAll(`.table-row-${index}`));
-          console.log(
-            "row[0]",
-            row[0],
-            "row[1]",
-            row[1],
-            "row0",
-            row0,
-            "row1",
-            row1
-          );
           // Apply a class to highlight the matching row
           const trElements = document.querySelectorAll(`.table-row-${index}`);
           trElements.forEach((trElement) => {
@@ -98,18 +110,6 @@ const ProductionTable = ({
           row[0].trim().toLowerCase() === row0.trim().toLowerCase() &&
           row[1].trim().toLowerCase() === row1.trim().toLowerCase()
         ) {
-          console.log("MATCH FOUND");
-          console.log(document.querySelectorAll(`.table-row-${index}`));
-          console.log(
-            "row[0]",
-            row[0],
-            "row[1]",
-            row[1],
-            "row0",
-            row0,
-            "row1",
-            row1
-          );
           // Apply a class to highlight the matching row
           const trElements = document.querySelectorAll(`.table-row-${index}`);
           trElements.forEach((trElement) => {
@@ -124,7 +124,13 @@ const ProductionTable = ({
 
   return (
     <div className="justify-around">
-      <StatTracker />
+      <StatTracker
+        timelineA={timelineA}
+        timelineB={timelineB}
+        timelineC={timelineC}
+        dateAndTimeline={dateAndTimeline}
+        setUnitsThisHour={setUnitsThisHour}
+      />
       <table className=" table-fixed rounded-lg shadow-lg">
         <tbody>
           <tr>
