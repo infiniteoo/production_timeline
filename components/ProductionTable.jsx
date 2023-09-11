@@ -12,9 +12,10 @@ const ProductionTable = ({
 
   // create a state that keeps track of what product, item number and quantity is being produced on each of the three timelines
   const [unitsThisHour, setUnitsThisHour] = useState({
-    timelineA: { item: "", product: "", qty: "" },
-    timelineB: { item: "", product: "", qty: "" },
-    timelineC: { item: "", product: "", qty: "" },
+    timelineA: { item: 123456, product: "placeholder", qty: 123 },
+    timelineB: { item: 123456, product: "placeholder", qty: 123 },
+    timelineC: { item: 123456, product: "placeholder", qty: 123 },
+    timelineD: { item: 123456, product: "placeholder", qty: 123 },
   });
 
   // define current hour
@@ -45,8 +46,8 @@ const ProductionTable = ({
             `.table-row-${rowIndex}`
           );
           trElements.forEach((trElement) => {
-            trElement.classList.add("bg-green-300");
             trElement.classList.add("font-bold");
+            trElement.classList.add("bg-green-200");
           });
           // Store the matched row element in the ref
           matchedRowRef.current = trElements[0];
@@ -74,10 +75,49 @@ const ProductionTable = ({
           console.log(updatedUnitsThisHour);
         }
       });
+
+      const myTables = [timelineA, timelineB, timelineC];
+
+      myTables.forEach((table, tableIndex) => {
+        let totalQty = 0; // Initialize the total quantity for this timeline
+
+        table.forEach((row, rowIndex) => {
+          console.log("row", row);
+          console.log(
+            "string creaed",
+            `timeline${String.fromCharCode(65 + tableIndex)}`
+          );
+          if (
+            row[3] ===
+              updatedUnitsThisHour[
+                `timeline${String.fromCharCode(66 + tableIndex)}`
+              ].item &&
+            row[4] ===
+              updatedUnitsThisHour[
+                `timeline${String.fromCharCode(66 + tableIndex)}`
+              ].product
+          ) {
+            // Update the total quantity for this timeline
+            totalQty += row[5];
+
+            // Set the values in the unitsThisHour state based on the current timeline
+            updatedUnitsThisHour[
+              `timeline${String.fromCharCode(66 + tableIndex)}`
+            ] = {
+              item: row[3],
+              product: row[4],
+              qty: row[5],
+              totalQty, // Add the totalQty to the state
+            };
+            setUnitsThisHour(updatedUnitsThisHour);
+            console.log(updatedUnitsThisHour);
+          }
+        });
+      });
     });
 
-    // Set the updated state with totalQty
-    setUnitsThisHour(updatedUnitsThisHour);
+    /*  setUnitsThisHour(updatedUnitsThisHour); */
+    console.log("unitsThisHour", unitsThisHour);
   }, [dateAndTimeline]);
 
   // Define a function to highlight matching rows in other tables
@@ -130,6 +170,7 @@ const ProductionTable = ({
         timelineC={timelineC}
         dateAndTimeline={dateAndTimeline}
         setUnitsThisHour={setUnitsThisHour}
+        unitsThisHour={unitsThisHour}
       />
       <table className=" table-fixed rounded-lg shadow-lg">
         <tbody>
@@ -193,7 +234,7 @@ const ProductionTable = ({
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
                             }`
-                          : `bg-white ${row[4] === "CIP" ? "bg-red-300  " : ""}`
+                          : `bg-white ${row[4] === "CIP" ? "bg-red-200" : ""}`
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
                         highlightMatchingRows(row[0], row[1]);
@@ -243,7 +284,7 @@ const ProductionTable = ({
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
                             }`
-                          : `bg-white ${row[4] === "CIP" ? " bg-red-300 " : ""}`
+                          : `bg-white ${row[4] === "CIP" ? "bg-red-200" : ""}`
                       } hover:bg-yellow-200 cursor-pointer `}
                       onMouseEnter={() => {
                         highlightMatchingRows(row[0], row[1]);
@@ -287,7 +328,7 @@ const ProductionTable = ({
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
                             }`
-                          : `bg-white ${row[4] === "CIP" ? " bg-red-300 " : ""}`
+                          : `bg-white ${row[4] === "CIP" ? "bg-red-200" : ""}`
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
                         highlightMatchingRows(row[0], row[1]);
