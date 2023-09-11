@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const ProductionTable = ({
   timelineA,
@@ -6,6 +6,9 @@ const ProductionTable = ({
   timelineC,
   dateAndTimeline,
 }) => {
+  // Create a ref to store the matched row element
+  const matchedRowRef = useRef(null);
+
   // create useeffect on component start
 
   useEffect(() => {
@@ -28,6 +31,17 @@ const ProductionTable = ({
             trElement.classList.add("bg-green-400");
             trElement.classList.add("font-bold");
           });
+
+          // Store the matched row element in the ref
+          matchedRowRef.current = trElements[0];
+
+          // Scroll to the matched row element and center it
+          if (matchedRowRef.current) {
+            matchedRowRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }
         }
       });
     });
