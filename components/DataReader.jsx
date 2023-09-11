@@ -34,16 +34,17 @@ const DataReader = ({
 
           // Create an array with the updated values
           const updatedRow = [dateValue, timeValue, ...row.slice(2)];
+          console.log("updatedRow", updatedRow);
 
           const dateAndTimelineEntry = updatedRow.slice(0, 2); // Entries 0-5
 
-          const entryA = updatedRow.slice(3, 6); // Entries 0-5
+          const entryA = [...updatedRow.slice(0, 6)]; // Entries 0-5
           const entryB = [
-            // ...updatedRow.slice(0, 3),
+            ...updatedRow.slice(0, 3),
             ...updatedRow.slice(7, 10),
           ]; // Entries 0-2 and 7-9
           const entryC = [
-            // ...updatedRow.slice(0, 3),
+            ...updatedRow.slice(0, 3),
             ...updatedRow.slice(11, 14),
           ]; // Entries 0-2 and 11-13
 
