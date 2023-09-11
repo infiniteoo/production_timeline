@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import StatTracker from "./StatTracker";
 
 const ProductionTable = ({
   timelineA,
@@ -80,7 +81,7 @@ const ProductionTable = ({
           const trElements = document.querySelectorAll(`.table-row-${index}`);
           trElements.forEach((trElement) => {
             trElement.classList.add("bg-yellow-300");
-            trElement.classList.add("scale-105");
+
             trElement.classList.add("transition-transform");
           });
         }
@@ -113,7 +114,7 @@ const ProductionTable = ({
           const trElements = document.querySelectorAll(`.table-row-${index}`);
           trElements.forEach((trElement) => {
             trElement.classList.remove("bg-yellow-300");
-            trElement.classList.remove("scale-105");
+
             trElement.classList.remove("transition-transform");
           });
         }
@@ -123,6 +124,7 @@ const ProductionTable = ({
 
   return (
     <div className="justify-around">
+      <StatTracker />
       <table className=" table-fixed rounded-lg shadow-lg">
         <tbody>
           <tr>

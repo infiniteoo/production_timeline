@@ -32,17 +32,6 @@ export default function Home() {
         timelineC={timelineC}
         dateAndTimeline={dateAndTimeline}
       />
-
-      {/* <DataReader
-        setTimelineA={setTimelineA}
-        setTimelineB={setTimelineB}
-        setTimelineC={setTimelineC}
-        setDateAndTimeline={setDateAndTimeline}
-      />
-      <DateAndTimeline dateAndTimeline={dateAndTimeline} />
-      <TimelineA timelineA={timelineA} />
-      <TimelineB timelineB={timelineB} />
-      <TimelineC timelineC={timelineC} /> */}
     </main>
   )
 }

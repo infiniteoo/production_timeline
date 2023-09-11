@@ -34,7 +34,6 @@ const DataReader = ({
 
           // Create an array with the updated values
           const updatedRow = [dateValue, timeValue, ...row.slice(2)];
-          console.log("updatedRow", updatedRow);
 
           const dateAndTimelineEntry = updatedRow.slice(0, 2); // Entries 0-5
 
