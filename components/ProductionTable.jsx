@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const ProductionTable = ({
   timelineA,
@@ -6,6 +6,41 @@ const ProductionTable = ({
   timelineC,
   dateAndTimeline,
 }) => {
+  // create useeffect on component start
+
+  useEffect(() => {
+    const tables = [dateAndTimeline, timelineA, timelineB, timelineC];
+    tables.forEach((table) => {
+      table.forEach((row, index) => {
+        const rowDate = new Date(row[0]);
+
+        console.log("row[1]", row[1]);
+        console.log("currentHour", currentHour);
+
+        if (
+          rowDate.toDateString() === fakeDate.toDateString() &&
+          row[1] === currentHour
+        ) {
+          console.log("MATCH FOUND");
+          // Apply a class to highlight the matching row
+          const trElements = document.querySelectorAll(`.table-row-${index}`);
+          trElements.forEach((trElement) => {
+            trElement.classList.add("bg-green-400");
+            trElement.classList.add("font-bold");
+          });
+        }
+      });
+    });
+  }, [dateAndTimeline]);
+
+  // define current hour
+  const currentHour =
+    new Date().getHours().toString().padStart(2, "0") + ":00:00";
+
+  // define fake date as 08/29/2023
+  const fakeDate = new Date(2023, 7, 29);
+  console.log("fakeDate", fakeDate);
+
   // Define a function to highlight matching rows in other tables
   const highlightMatchingRows = (row0, row1) => {
     const tables = [dateAndTimeline, timelineA, timelineB, timelineC];
@@ -31,6 +66,8 @@ const ProductionTable = ({
           const trElements = document.querySelectorAll(`.table-row-${index}`);
           trElements.forEach((trElement) => {
             trElement.classList.add("bg-yellow-300");
+            trElement.classList.add("scale-105");
+            trElement.classList.add("transition-transform");
           });
         }
       });
@@ -62,6 +99,8 @@ const ProductionTable = ({
           const trElements = document.querySelectorAll(`.table-row-${index}`);
           trElements.forEach((trElement) => {
             trElement.classList.remove("bg-yellow-300");
+            trElement.classList.remove("scale-105");
+            trElement.classList.remove("transition-transform");
           });
         }
       });
