@@ -193,9 +193,7 @@ const ProductionTable = ({
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
                             }`
-                          : `bg-white ${
-                              row[4] === "CIP" ? "text-white bg-red-600 " : ""
-                            }`
+                          : `bg-white ${row[4] === "CIP" ? "bg-red-300  " : ""}`
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
                         highlightMatchingRows(row[0], row[1]);
@@ -245,9 +243,7 @@ const ProductionTable = ({
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
                             }`
-                          : `bg-white ${
-                              row[4] === "CIP" ? "text-white bg-red-600 " : ""
-                            }`
+                          : `bg-white ${row[4] === "CIP" ? " bg-red-300 " : ""}`
                       } hover:bg-yellow-200 cursor-pointer `}
                       onMouseEnter={() => {
                         highlightMatchingRows(row[0], row[1]);
@@ -291,9 +287,7 @@ const ProductionTable = ({
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
                             }`
-                          : `bg-white ${
-                              row[4] === "CIP" ? "text-white bg-red-600 " : ""
-                            }`
+                          : `bg-white ${row[4] === "CIP" ? " bg-red-300 " : ""}`
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
                         highlightMatchingRows(row[0], row[1]);
