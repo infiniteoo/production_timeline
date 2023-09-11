@@ -17,10 +17,10 @@ const ProductionTable = ({
               <table className="w-52 min-h-[400px] rounded-lg shadow-lg">
                 <thead>
                   <tr>
-                    <th className="px-2 py-1 text-left bg-blue-500 text-white">
+                    <th className="px-2 py-1 text-left bg-blue-500 text-white top-0 sticky">
                       Date
                     </th>
-                    <th className="px-2 py-1 text-left bg-blue-500 text-white">
+                    <th className="px-2 py-1 text-left bg-blue-500 text-white top-0 sticky">
                       Time
                     </th>
                   </tr>
@@ -46,13 +46,13 @@ const ProductionTable = ({
               <table className="min-h-[400px] rounded-lg shadow-lg">
                 <thead>
                   <tr>
-                    <th className="px-2 py-1 text-left bg-green-500 text-white">
+                    <th className="px-2 py-1 text-left bg-green-500 text-white top-0 sticky">
                       Item
                     </th>
-                    <th className="px-2 py-1 text-left bg-green-500 text-white pl-20">
+                    <th className="px-2 py-1 text-left bg-green-500 text-white pl-20 top-0 sticky">
                       Product
                     </th>
-                    <th className="px-2 py-1 text-left bg-green-500 text-white">
+                    <th className="px-2 py-1 text-left bg-green-500 text-white top-0 sticky">
                       Qty
                     </th>
                   </tr>
@@ -87,13 +87,13 @@ const ProductionTable = ({
               <table className="table-fixed min-h-[400px] rounded-lg shadow-lg">
                 <thead>
                   <tr>
-                    <th className="px-2 py-1 text-left bg-orange-500 text-white">
+                    <th className="px-2 py-1 text-left bg-orange-500 text-white top-0 sticky">
                       Item
                     </th>
-                    <th className="px-2 py-1 text-left bg-orange-500 text-white pl-20">
+                    <th className="px-2 py-1 text-left bg-orange-500 text-white pl-20 top-0 sticky">
                       Product
                     </th>
-                    <th className="px-2 py-1 text-left bg-orange-500 text-white">
+                    <th className="px-2 py-1 text-left bg-orange-500 text-white top-0 sticky">
                       Qty
                     </th>
                   </tr>
@@ -128,13 +128,13 @@ const ProductionTable = ({
               <table className="table-fixed min-h-[400px] rounded-lg shadow-lg">
                 <thead>
                   <tr>
-                    <th className="px-2 py-1 text-left bg-purple-500 text-white">
+                    <th className="px-2 py-1 text-left bg-purple-500 text-white top-0 sticky">
                       Item
                     </th>
-                    <th className="px-2 py-1 text-left bg-purple-500 text-white pl-5">
+                    <th className="px-2 py-1 text-left bg-purple-500 text-white pl-5 top-0 sticky">
                       Product
                     </th>
-                    <th className="px-2 py-1 text-left bg-purple-500 text-white">
+                    <th className="px-2 py-1 text-left bg-purple-500 text-white top-0 sticky">
                       Qty
                     </th>
                   </tr>
