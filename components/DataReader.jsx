@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const DataReader = () => {
-  const [timelineA, setTimelineA] = useState([]);
-  const [timelineB, setTimelineB] = useState([]);
-  const [timelineC, setTimelineC] = useState([]);
-
+const DataReader = ({
+  setTimelineA,
+  setTimelineB,
+  setTimelineC,
+  setDateAndTimeline,
+}) => {
   useEffect(() => {
+    // Convert entry 0 (date) into a readable date format
+
     // Make an Axios GET request to fetch the Excel data
     axios
       .get("http://localhost:5000/api/excel")
@@ -15,12 +18,36 @@ const DataReader = () => {
         const updatedTimelineA = [];
         const updatedTimelineB = [];
         const updatedTimelineC = [];
+        const updatedDateAndTimeline = [];
 
         data.forEach((row, index) => {
-          const entryA = row.slice(0, 6); // Entries 0-5
-          const entryB = [...row.slice(0, 3), ...row.slice(7, 10)]; // Entries 0-2 and 7-9
-          const entryC = [...row.slice(0, 3), ...row.slice(11, 14)]; // Entries 0-2 and 11-13
+          // Convert entry 0 (date) into a readable date format
+          const excelEpoch = new Date(Date.UTC(1899, 11, 31)); // Excel epoch is January 1, 1900
+          const dateValue = new Date(
+            excelEpoch.getTime() + row[0] * 24 * 60 * 60 * 1000
+          ).toLocaleDateString();
 
+          // Convert entry 1 (time) into a time format
+          const timeValue = new Date(row[1] * 24 * 60 * 60 * 1000)
+            .toUTCString()
+            .split(" ")[4];
+
+          // Create an array with the updated values
+          const updatedRow = [dateValue, timeValue, ...row.slice(2)];
+
+          const dateAndTimelineEntry = updatedRow.slice(0, 2); // Entries 0-5
+
+          const entryA = updatedRow.slice(3, 6); // Entries 0-5
+          const entryB = [
+            // ...updatedRow.slice(0, 3),
+            ...updatedRow.slice(7, 10),
+          ]; // Entries 0-2 and 7-9
+          const entryC = [
+            // ...updatedRow.slice(0, 3),
+            ...updatedRow.slice(11, 14),
+          ]; // Entries 0-2 and 11-13
+
+          updatedDateAndTimeline.push(dateAndTimelineEntry);
           updatedTimelineA.push(entryA);
           updatedTimelineB.push(entryB);
           updatedTimelineC.push(entryC);
@@ -29,81 +56,16 @@ const DataReader = () => {
         setTimelineA(updatedTimelineA);
         setTimelineB(updatedTimelineB);
         setTimelineC(updatedTimelineC);
+        setDateAndTimeline(updatedDateAndTimeline);
 
-        // log all three updated timelines
-        console.log("Timeline A:", updatedTimelineA);
-        console.log("Timeline B:", updatedTimelineB);
-        console.log("Timeline C:", updatedTimelineC);
+        // log all three timelines
       })
       .catch((error) => {
         console.error("Error fetching the Excel data:", error);
       });
   }, []);
 
-  return (
-    <div>
-      <h2>Excel Data</h2>
-      <h3>Timeline A</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-            {/* Add more columns as needed */}
-          </tr>
-        </thead>
-        <tbody>
-          {timelineA.map((row, index) => (
-            <tr key={index}>
-              {row.map((entry, entryIndex) => (
-                <td key={entryIndex}>{entry}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <h3>Timeline B</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-            {/* Add more columns as needed */}
-          </tr>
-        </thead>
-        <tbody>
-          {timelineB.map((row, index) => (
-            <tr key={index}>
-              {row.map((entry, entryIndex) => (
-                <td key={entryIndex}>{entry}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <h3>Timeline C</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-            {/* Add more columns as needed */}
-          </tr>
-        </thead>
-        <tbody>
-          {timelineC.map((row, index) => (
-            <tr key={index}>
-              {row.map((entry, entryIndex) => (
-                <td key={entryIndex}>{entry}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default DataReader;

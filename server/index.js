@@ -98,7 +98,7 @@ app.get('/api/excel', (req, res) => {
   })
 
   // Send the JSON data as a response
-  console.log(excelData)
+
   res.json(excelData)
 })
 
