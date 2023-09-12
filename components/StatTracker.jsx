@@ -143,6 +143,8 @@ const StatTracker = ({
 
   return (
     <div className="stat-tracker h-52 flex flex-row justify-center border-3 border-white">
+      {/* more data here - time?  weather? */}
+      <div className="w-2/12"></div>
       <div className="flex flex-col w-1/3 mr-10">
         <div className="">
           {unitsThisHour.timelineB.product === "CIP" ? (
@@ -153,21 +155,22 @@ const StatTracker = ({
         </div>
         {unitsThisHour.timelineB.product !== "CIP" ? (
           <div>
-            <div className="flex flex-row mt-2 w-full">
+            {" "}
+            <div className="flex flex-row mt-2 w-full ">
               <div className="stat-item">
                 <p>Item Number: {unitsThisHour.timelineB.item}</p>
               </div>
               <div className="stat-item">
                 <p>Item: {unitsThisHour.timelineB.product}</p>
               </div>
-              <div className="w-9/12 mt-1">
+              <div className="w-9/12">
                 <ProgressBar
                   qty={qtyA}
                   totalQty={unitsThisHour.timelineB.qty}
                   message={"Units/Hour: "}
                   startingQty={startingQtyA}
                 />
-                <div className="text-right text-lg mt-1">
+                <div className="text-right text-sm mt-1">
                   Units Created This Hour:{" "}
                   <CountUp
                     start={unitsMadeThisHourA}
@@ -177,12 +180,42 @@ const StatTracker = ({
                 </div>
               </div>
             </div>
-            <div className="">
+            <div className="flex flex-row">
               <div className="stat-item">
-                <p className="">Units/Hour: {unitsThisHour.timelineB.qty}</p>
+                <p>Units/Hour: {unitsThisHour.timelineB.qty}</p>
               </div>
               <div className="stat-item">
                 <p>Total Units: {unitsThisHour.timelineB.totalQty}</p>
+              </div>
+              {/* search totalUnitsByItem for matching item number to timelineD.item and return totalMade and totalRemaining */}
+
+              <div className="w-9/12 ml-5 ">
+                <ProgressBar
+                  qty={
+                    totalUnitsByItem[unitsThisHour.timelineB.item]
+                      ? totalUnitsByItem[unitsThisHour.timelineB.item]
+                          .totalRemaining
+                      : 0
+                  }
+                  totalQty={
+                    totalUnitsByItem[unitsThisHour.timelineB.item]
+                      ? totalUnitsByItem[unitsThisHour.timelineB.item].totalMade
+                      : 0
+                  }
+                  message={"Units/Hour: "}
+                  startingQty={
+                    totalUnitsByItem[unitsThisHour.timelineB.item]
+                      ? totalUnitsByItem[unitsThisHour.timelineB.item]
+                          .totalRemaining + startingQtyA
+                      : 0
+                  }
+                />
+                <div className="text-right text-sm mt-1">
+                  Total Units Created: <CountUp start={qtyA} end={qtyA} /> /{" "}
+                  {totalUnitsByItem[unitsThisHour.timelineB.item]
+                    ? totalUnitsByItem[unitsThisHour.timelineB.item].totalMade
+                    : 0}
+                </div>
               </div>
             </div>
           </div>
@@ -193,7 +226,7 @@ const StatTracker = ({
         )}
       </div>
 
-      <div className="flex flex-col w-1/3 mr-10 ">
+      <div className="flex flex-col w-1/3 mr-9">
         <div className="">
           {unitsThisHour.timelineC.product === "CIP" ? (
             <RunningStatus status="LINE B - OFFLINE" />
@@ -203,14 +236,14 @@ const StatTracker = ({
         </div>
         {unitsThisHour.timelineC.product !== "CIP" ? (
           <div>
-            <div className="flex flex-row mt-2 w-full">
+            {" "}
+            <div className="flex flex-row mt-2 w-full ">
               <div className="stat-item">
                 <p>Item Number: {unitsThisHour.timelineC.item}</p>
               </div>
               <div className="stat-item">
                 <p>Item: {unitsThisHour.timelineC.product}</p>
               </div>
-
               <div className="w-9/12">
                 <ProgressBar
                   qty={qtyB}
@@ -218,7 +251,7 @@ const StatTracker = ({
                   message={"Units/Hour: "}
                   startingQty={startingQtyB}
                 />
-                <div className="text-right text-lg mt-1">
+                <div className="text-right text-sm mt-1">
                   Units Created This Hour:{" "}
                   <CountUp
                     start={unitsMadeThisHourB}
@@ -228,12 +261,42 @@ const StatTracker = ({
                 </div>
               </div>
             </div>
-            <div className="">
+            <div className="flex flex-row">
               <div className="stat-item">
                 <p>Units/Hour: {unitsThisHour.timelineC.qty}</p>
               </div>
               <div className="stat-item">
                 <p>Total Units: {unitsThisHour.timelineC.totalQty}</p>
+              </div>
+              {/* search totalUnitsByItem for matching item number to timelineD.item and return totalMade and totalRemaining */}
+
+              <div className="w-9/12 ml-5 ">
+                <ProgressBar
+                  qty={
+                    totalUnitsByItem[unitsThisHour.timelineC.item]
+                      ? totalUnitsByItem[unitsThisHour.timelineC.item]
+                          .totalRemaining
+                      : 0
+                  }
+                  totalQty={
+                    totalUnitsByItem[unitsThisHour.timelineC.item]
+                      ? totalUnitsByItem[unitsThisHour.timelineC.item].totalMade
+                      : 0
+                  }
+                  message={"Units/Hour: "}
+                  startingQty={
+                    totalUnitsByItem[unitsThisHour.timelineC.item]
+                      ? totalUnitsByItem[unitsThisHour.timelineC.item]
+                          .totalRemaining + startingQtyB
+                      : 0
+                  }
+                />
+                <div className="text-right text-sm mt-1">
+                  Total Units Created: <CountUp start={qtyB} end={qtyB} /> /{" "}
+                  {totalUnitsByItem[unitsThisHour.timelineC.item]
+                    ? totalUnitsByItem[unitsThisHour.timelineC.item].totalMade
+                    : 0}
+                </div>
               </div>
             </div>
           </div>
@@ -244,7 +307,7 @@ const StatTracker = ({
         )}
       </div>
 
-      <div className="flex flex-col w-1/3 mr-10">
+      <div className="flex flex-col w-1/3 ml-15">
         <div className="">
           {unitsThisHour.timelineD.product === "CIP" ? (
             <RunningStatus status="LINE C - OFFLINE" />
@@ -269,7 +332,7 @@ const StatTracker = ({
                   message={"Units/Hour: "}
                   startingQty={startingQtyC}
                 />
-                <div className="text-right text-lg mt-1">
+                <div className="text-right text-sm mt-1">
                   Units Created This Hour:{" "}
                   <CountUp
                     start={unitsMadeThisHourC}
@@ -279,17 +342,41 @@ const StatTracker = ({
                 </div>
               </div>
             </div>
-            <div className="">
+            <div className="flex flex-row">
               <div className="stat-item">
                 <p>Units/Hour: {unitsThisHour.timelineD.qty}</p>
               </div>
               <div className="stat-item">
                 <p>Total Units: {unitsThisHour.timelineD.totalQty}</p>
               </div>
-              <div className="text-right text-xl">
-                Total Units This Hour:{" "}
-                <CountUp start={unitsMadeThisHourC} end={unitsMadeThisHourC} />{" "}
-                / {unitsThisHour.timelineD.qty}
+
+              <div className="w-9/12 ml-5 ">
+                <ProgressBar
+                  qty={
+                    totalUnitsByItem[unitsThisHour.timelineD.item]
+                      ? totalUnitsByItem[unitsThisHour.timelineD.item]
+                          .totalRemaining
+                      : 0
+                  }
+                  totalQty={
+                    totalUnitsByItem[unitsThisHour.timelineD.item]
+                      ? totalUnitsByItem[unitsThisHour.timelineD.item].totalMade
+                      : 0
+                  }
+                  message={"Units/Hour: "}
+                  startingQty={
+                    totalUnitsByItem[unitsThisHour.timelineD.item]
+                      ? totalUnitsByItem[unitsThisHour.timelineD.item]
+                          .totalRemaining + startingQtyC
+                      : 0
+                  }
+                />
+                <div className="text-right text-sm mt-1">
+                  Total Units Created: <CountUp start={qtyC} end={qtyC} /> /{" "}
+                  {totalUnitsByItem[unitsThisHour.timelineD.item]
+                    ? totalUnitsByItem[unitsThisHour.timelineD.item].totalMade
+                    : 0}
+                </div>
               </div>
             </div>
           </div>

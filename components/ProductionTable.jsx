@@ -232,17 +232,17 @@ const ProductionTable = ({
                 </tbody>
               </table>
             </td>
-            <td className="w-1/3 p-2 border-r">
-              <table className="min-h-[400px] rounded-lg shadow-lg">
+            <td className="w-1/4 p-2 border-r">
+              <table className="min-h-[400px] rounded-lg shadow-lg  ">
                 <thead>
                   <tr>
-                    <th className="px-2 py-1 text-left bg-green-500 text-white top-0 sticky">
+                    <th className="px-2 py-1 text-left bg-green-500 text-white top-0 sticky ">
                       Item
                     </th>
-                    <th className="px-2 py-1 text-left bg-green-500 text-white pl-20 top-0 sticky">
+                    <th className="px-2 py-1 text-left bg-green-500 text-white pl-5 top-0 sticky">
                       Product
                     </th>
-                    <th className="px-2 py-1 text-left bg-green-500 text-white top-0 sticky">
+                    <th className="px-2 py-1 text-left bg-green-500 text-white top-0 sticky ">
                       Qty
                     </th>
                   </tr>
@@ -267,22 +267,20 @@ const ProductionTable = ({
                       }}
                     >
                       <td
-                        className={`px-2 py-1 align-top w-1/6 ${
+                        className={`px-2 py-1 align-top w-1/12 ${
                           row[0] === "CIP" ? "bg-red-500 text-white" : ""
                         }`}
                       >
                         {row[3]}
                       </td>
-                      <td className="px-2 py-1 pl-20 align-top w-4/6">
-                        {row[4]}
-                      </td>
-                      <td className="px-2 py-1 align-top w-1/6">{row[5]}</td>
+                      <td className="px-2 py-1  align-top w-4/6">{row[4]}</td>
+                      <td className="px-2 py-1 align-top w-1/12">{row[5]}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </td>
-            <td className="w-1/3 p-2 border-r">
+            <td className="w-1/4 p-2 border-r">
               <table className="table-fixed min-h-[400px] rounded-lg shadow-lg">
                 <thead>
                   <tr>
@@ -316,17 +314,19 @@ const ProductionTable = ({
                         clearMatchingRowHighlights(row[0], row[1]);
                       }}
                     >
-                      <td className={`px-2 py-1 align-top w-1/6 `}>{row[3]}</td>
+                      <td className={`px-2 py-1 align-top w-1/12 `}>
+                        {row[3]}
+                      </td>
                       <td className="px-2 py-1 pl-10 align-top w-4/6">
                         {row[4]}
                       </td>
-                      <td className="px-2 py-1 align-top w-1/6">{row[5]}</td>
+                      <td className="px-2 py-1 align-top w-1/12">{row[5]}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </td>
-            <td className="w-1/3 p-2 border-r">
+            <td className="w-1/4 p-2 border-r">
               <table className="table-fixed min-h-[400px] rounded-lg shadow-lg">
                 <thead>
                   <tr>
@@ -361,16 +361,16 @@ const ProductionTable = ({
                       }}
                     >
                       <td
-                        className={`px-2 py-1 align-top w-1/12 ${
+                        className={`px-2 py-1 align-top w-1/6 ${
                           row[0] === "CIP" ? "bg-red-500 text-white" : ""
                         }`}
                       >
                         {row[3]}
                       </td>
-                      <td className="px-2 py-1 pl-5 align-top w-2/4">
+                      <td className="px-2 py-1 pl-5 align-top w-4/6">
                         {row[4]}
                       </td>
-                      <td className="px-2 py-1 align-top w-1/12 ">{row[5]}</td>
+                      <td className="px-2 py-1 align-top w-1/12">{row[5]}</td>
                     </tr>
                   ))}
                 </tbody>
