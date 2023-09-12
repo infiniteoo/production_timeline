@@ -21,8 +21,10 @@ const StatTracker = ({
 
   // Calculate the progress of the hour that has already passed
   const now = new Date();
-  const secondsPassed = now.getMinutes() * 60 + now.getSeconds();
-  const remainingSeconds = 3600 - secondsPassed;
+  const minutesPassed = now.getMinutes();
+  const secondsPassed = minutesPassed * 60 + now.getSeconds();
+  const remainingMinutes = 60 - minutesPassed;
+  const remainingSeconds = remainingMinutes * 60;
 
   const unitsPerHourA = unitsThisHour.timelineB.qty;
   const unitsPerHourB = unitsThisHour.timelineC.qty;
@@ -42,17 +44,18 @@ const StatTracker = ({
 
   // Update the qty every second for each line
   useEffect(() => {
+    // Calculate the interval based on unitsPerSecond
     const intervalA = setInterval(() => {
       setQtyA((prevQty) => prevQty + unitsPerSecondA);
-    }, 1000);
+    }, 1000 / unitsPerSecondA);
 
     const intervalB = setInterval(() => {
       setQtyB((prevQty) => prevQty + unitsPerSecondB);
-    }, 1000);
+    }, 1000 / unitsPerSecondB);
 
     const intervalC = setInterval(() => {
       setQtyC((prevQty) => prevQty + unitsPerSecondC);
-    }, 1000);
+    }, 1000 / unitsPerSecondC);
 
     // Clear the intervals when the component unmounts
     return () => {
@@ -61,6 +64,12 @@ const StatTracker = ({
       clearInterval(intervalC);
     };
   }, [unitsPerSecondA, unitsPerSecondB, unitsPerSecondC]);
+
+  useEffect(() => {}, [
+    unitsMadeThisHourA,
+    unitsMadeThisHourB,
+    unitsMadeThisHourC,
+  ]);
 
   // log all these values to the console
 
@@ -113,7 +122,7 @@ const StatTracker = ({
                   qty={qtyA}
                   totalQty={unitsThisHour.timelineB.qty}
                   message={"Units/Hour: "}
-                  startingQty={unitsMadeThisHourA}
+                  startingQty={startingQtyA}
                 />
                 <div className="text-right text-lg mt-1">
                   Units Created This Hour:{" "}
@@ -164,7 +173,7 @@ const StatTracker = ({
                   qty={qtyB}
                   totalQty={unitsThisHour.timelineC.qty}
                   message={"Units/Hour: "}
-                  startingQty={unitsMadeThisHourB}
+                  startingQty={startingQtyB}
                 />
                 <div className="text-right text-lg mt-1">
                   Units Created This Hour:{" "}
@@ -215,7 +224,7 @@ const StatTracker = ({
                   qty={qtyC}
                   totalQty={unitsThisHour.timelineD.qty}
                   message={"Units/Hour: "}
-                  startingQty={unitsMadeThisHourC}
+                  startingQty={startingQtyC}
                 />
                 <div className="text-right text-lg mt-1">
                   Units Created This Hour:{" "}

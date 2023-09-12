@@ -9,6 +9,22 @@ const ProductionTable = ({
 }) => {
   // Create a ref to store the matched row element
   const matchedRowRef = useRef(null);
+  // State to keep track of the current hour
+
+  const [currentHour, setCurrentHour] = useState(
+    new Date().getHours().toString().padStart(2, "0") + ":00:00"
+  );
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const newHour =
+        new Date().getHours().toString().padStart(2, "0") + ":00:00";
+      setCurrentHour(newHour);
+    }, 60000); // Update every minute
+
+    // Clear the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [currentHour]);
 
   // create a state that keeps track of what product, item number and quantity is being produced on each of the three timelines
   const [unitsThisHour, setUnitsThisHour] = useState({
@@ -19,8 +35,6 @@ const ProductionTable = ({
   });
 
   // define current hour
-  const currentHour =
-    new Date().getHours().toString().padStart(2, "0") + ":00:00";
 
   // define fake date as 08/29/2023
   const fakeDate = new Date(2023, 7, 29);

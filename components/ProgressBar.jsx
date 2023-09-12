@@ -3,7 +3,7 @@ import "./ProgressBar.css"; // You can create a CSS file for styling
 
 function ProgressBar({ qty, totalQty, message, startingQty }) {
   // Calculate the percentage of completion
-  const percentage = (Math.abs(startingQty) / totalQty) * 100;
+  const percentage = ((qty - startingQty) / totalQty) * 100;
 
   return (
     <div className="progress-container">
