@@ -12,10 +12,10 @@ const ProductionTable = ({
 
   // create a state that keeps track of what product, item number and quantity is being produced on each of the three timelines
   const [unitsThisHour, setUnitsThisHour] = useState({
-    timelineA: { item: 123456, product: "placeholder", qty: 123 },
-    timelineB: { item: 123456, product: "placeholder", qty: 123 },
-    timelineC: { item: 123456, product: "placeholder", qty: 123 },
-    timelineD: { item: 123456, product: "placeholder", qty: 123 },
+    timelineA: { item: 0, product: "", qty: 0 },
+    timelineB: { item: 0, product: "", qty: 0 },
+    timelineC: { item: 0, product: "", qty: 0 },
+    timelineD: { item: 0, product: "", qty: 0 },
   });
 
   // define current hour
@@ -29,6 +29,7 @@ const ProductionTable = ({
 
   useEffect(() => {
     const updatedUnitsThisHour = { ...unitsThisHour };
+    console.log("updatedUnitsThisHour", updatedUnitsThisHour);
     const tables = [dateAndTimeline, timelineA, timelineB, timelineC];
 
     tables.forEach((table, tableIndex) => {
@@ -47,7 +48,9 @@ const ProductionTable = ({
           );
           trElements.forEach((trElement) => {
             trElement.classList.add("font-bold");
+
             trElement.classList.add("bg-green-200");
+            trElement.style.backgroundColor = "#86EFAC"; // Set the background color to the desired color
           });
           // Store the matched row element in the ref
           matchedRowRef.current = trElements[0];
@@ -71,8 +74,6 @@ const ProductionTable = ({
             qty: row[5],
             totalQty, // Add the totalQty to the state
           };
-
-          console.log(updatedUnitsThisHour);
         }
       });
 
@@ -82,11 +83,7 @@ const ProductionTable = ({
         let totalQty = 0; // Initialize the total quantity for this timeline
 
         table.forEach((row, rowIndex) => {
-          console.log("row", row);
-          console.log(
-            "string creaed",
-            `timeline${String.fromCharCode(65 + tableIndex)}`
-          );
+          /*  */
           if (
             row[3] ===
               updatedUnitsThisHour[
@@ -110,13 +107,13 @@ const ProductionTable = ({
               totalQty, // Add the totalQty to the state
             };
             setUnitsThisHour(updatedUnitsThisHour);
-            console.log(updatedUnitsThisHour);
+            /* console.log(updatedUnitsThisHour); */
           }
         });
       });
     });
 
-    /*  setUnitsThisHour(updatedUnitsThisHour); */
+    setUnitsThisHour(updatedUnitsThisHour);
     console.log("unitsThisHour", unitsThisHour);
   }, [dateAndTimeline]);
 
@@ -163,7 +160,7 @@ const ProductionTable = ({
   };
 
   return (
-    <div className="justify-around">
+    <div className="justify-between">
       <StatTracker
         timelineA={timelineA}
         timelineB={timelineB}
@@ -234,7 +231,7 @@ const ProductionTable = ({
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
                             }`
-                          : `bg-white ${row[4] === "CIP" ? "bg-red-200" : ""}`
+                          : ` ${row[4] === "CIP" ? "bg-red-200" : "bg-white"}`
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
                         highlightMatchingRows(row[0], row[1]);
@@ -284,7 +281,7 @@ const ProductionTable = ({
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
                             }`
-                          : `bg-white ${row[4] === "CIP" ? "bg-red-200" : ""}`
+                          : `${row[4] === "CIP" ? "bg-red-200" : "bg-white "}`
                       } hover:bg-yellow-200 cursor-pointer `}
                       onMouseEnter={() => {
                         highlightMatchingRows(row[0], row[1]);
@@ -328,7 +325,7 @@ const ProductionTable = ({
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500 text-white" : ""
                             }`
-                          : `bg-white ${row[4] === "CIP" ? "bg-red-200" : ""}`
+                          : ` ${row[4] === "CIP" ? "bg-red-200" : "bg-white"}`
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
                         highlightMatchingRows(row[0], row[1]);

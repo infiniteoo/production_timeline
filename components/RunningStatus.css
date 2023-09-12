@@ -11,6 +11,17 @@
   text-align: center;
   width: 100%;
 }
+.stopped-box {
+  display: inline-block;
+  padding: 6px;
+  background-color: black;
+  color: red; /* Neon green color */
+  font-size: 24px;
+  border: 2px solid red; /* Neon green border */
+  animation: blink 3s infinite; /* 3s blinking + 4s hold = 7s total */
+  text-align: center;
+  width: 100%;
+}
 
 .stat-item {
   font-size: 14px;

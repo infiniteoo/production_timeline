@@ -17,7 +17,6 @@ export default function Home() {
     new Date('2023/08/28 12:00:00'),
   )
 
-  console.log('fake current date', fakeCurrentDate)
   return (
     <main className="  text-lg">
       <DataReader
