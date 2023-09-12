@@ -3,6 +3,7 @@ import "./StatTracker.css"; // Import the CSS for styling
 import RunningStatus from "./RunningStatus";
 import ProgressBar from "./ProgressBar";
 import CountUp from "react-countup";
+import TimeAndWeather from "./TimeAndWeather";
 
 const StatTracker = ({
   timelineA,
@@ -144,7 +145,9 @@ const StatTracker = ({
   return (
     <div className="stat-tracker h-52 flex flex-row justify-center border-3 border-white">
       {/* more data here - time?  weather? */}
-      <div className="w-2/12"></div>
+      <div className="w-2/12">
+        <TimeAndWeather />
+      </div>
       <div className="flex flex-col w-1/3 mr-10">
         <div className="">
           {unitsThisHour.timelineB.product === "CIP" ? (
