@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from "react";
-import moment from "moment";
 
 function TimeComponent() {
-  const [currentTime, setCurrentTime] = useState(moment());
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime(moment());
+      setCurrentDateTime(new Date()); // Update with a new Date object
     }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-  return <p className="">{currentTime.format("HH:mm:ss")}</p>;
+  const formattedTime = currentDateTime.toLocaleTimeString();
+  const formattedDate = currentDateTime.toLocaleDateString(undefined, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  return (
+    <div>
+      <p className="text-4xl font-bold">{formattedTime}</p>
+      <p className="text-sm">{formattedDate}</p>
+    </div>
+  );
 }
 
 export default TimeComponent;

@@ -28,17 +28,19 @@ function WeatherComponent({ apiKey, city }) {
   const weatherIcon = weather[0].icon;
 
   return (
-    <div className="weather-component ">
+    <div className="weather-component flex flex-row">
       <img
-        width="75px"
-        className="ml-1"
+        width="60px"
+        className=""
         src={`http://openweathermap.org/img/wn/${weatherIcon}.png`}
         alt="Weather Icon"
       />
-      <p className="text-center text-3xl">
-        {Math.round(temperatureFahrenheit)}°F
-      </p>
-      <p>{weatherDescription}</p>
+      <div className="flex flex-col">
+        <p className="text-center text-3xl">
+          {Math.round(temperatureFahrenheit)}°F
+        </p>
+        <p>{weatherDescription}</p>
+      </div>
     </div>
   );
 }
