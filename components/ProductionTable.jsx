@@ -48,6 +48,9 @@ const ProductionTable = ({
           );
           trElements.forEach((trElement) => {
             trElement.classList.add("font-bold");
+            // add a black border to the match row, just the outline
+            trElement.classList.add("border-4");
+            trElement.classList.add("border-black");
 
             trElement.classList.add("bg-green-200");
             trElement.style.backgroundColor = "#86EFAC"; // Set the background color to the desired color
