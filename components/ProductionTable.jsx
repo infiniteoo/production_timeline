@@ -232,7 +232,7 @@ const ProductionTable = ({
                       className={`table-row-${index} ${
                         index % 2 === 0
                           ? `bg-gray-100 ${
-                              row[4] === "CIP" ? "bg-red-500 text-white" : ""
+                              row[4] === "CIP" ? "bg-red-500" : ""
                             }`
                           : ` ${row[4] === "CIP" ? "bg-red-200" : "bg-white"}`
                       } hover:bg-yellow-200 cursor-pointer`}
@@ -282,7 +282,7 @@ const ProductionTable = ({
                       className={`table-row-${index} ${
                         index % 2 === 0
                           ? `bg-gray-100 ${
-                              row[4] === "CIP" ? "bg-red-500 text-white" : ""
+                              row[4] === "CIP" ? "bg-red-500" : ""
                             }`
                           : `${row[4] === "CIP" ? "bg-red-200" : "bg-white "}`
                       } hover:bg-yellow-200 cursor-pointer `}
@@ -326,7 +326,7 @@ const ProductionTable = ({
                       className={`table-row-${index} ${
                         index % 2 === 0
                           ? `bg-gray-100 ${
-                              row[4] === "CIP" ? "bg-red-500 text-white" : ""
+                              row[4] === "CIP" ? "bg-red-500" : ""
                             }`
                           : ` ${row[4] === "CIP" ? "bg-red-200" : "bg-white"}`
                       } hover:bg-yellow-200 cursor-pointer`}

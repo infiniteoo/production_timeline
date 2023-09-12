@@ -5,7 +5,7 @@ function ProgressBar({ qty, totalQty, message, startingQty }) {
   console.log("starting qty", startingQty);
   console.log("total qty", totalQty);
   // Calculate the percentage of completion
-  const percentage = (startingQty / totalQty) * 100;
+  const percentage = (Math.abs(startingQty) / totalQty) * 100;
   /*   console.log(
     "in progress bar, qty, totalqty, message",
     qty,
@@ -17,7 +17,7 @@ function ProgressBar({ qty, totalQty, message, startingQty }) {
     <div className="progress-container">
       <div className="progress-bar" style={{ width: `${percentage}%` }}>
         <div className="flex flex-row justify-start">
-          <div className="progress-text">{`${message} `}</div>
+          <div className="progress-text ml-2">{`${message} `}</div>
           <div className="progress-text">{`${percentage.toFixed(2)}% `}</div>
         </div>
       </div>
