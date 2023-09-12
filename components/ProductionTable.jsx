@@ -56,19 +56,29 @@ const ProductionTable = ({
           rowDate.toDateString() === fakeDate.toDateString() &&
           row[1] === currentHour
         ) {
+          // Unhighlight the previously highlighted rows and remove CSS effects
+          const highlightedRows = document.querySelectorAll(".highlighted-row");
+          highlightedRows.forEach((highlightedRow) => {
+            highlightedRow.classList.remove("font-bold");
+            highlightedRow.classList.remove("border-4");
+            highlightedRow.classList.remove("border-black");
+            highlightedRow.classList.remove("bg-green-200");
+            highlightedRow.style.backgroundColor = ""; // Remove background color
+          });
+
           // Apply a class to highlight the matching row
           const trElements = document.querySelectorAll(
             `.table-row-${rowIndex}`
           );
           trElements.forEach((trElement) => {
             trElement.classList.add("font-bold");
-            // add a black border to the match row, just the outline
             trElement.classList.add("border-4");
             trElement.classList.add("border-black");
-
             trElement.classList.add("bg-green-200");
             trElement.style.backgroundColor = "#86EFAC"; // Set the background color to the desired color
+            trElement.classList.add("highlighted-row"); // Add a class to mark as highlighted
           });
+
           // Store the matched row element in the ref
           matchedRowRef.current = trElements[0];
           // Scroll to the matched row element and center it
@@ -81,6 +91,7 @@ const ProductionTable = ({
 
           // Update the total quantity for this timeline
           totalQty += row[5];
+          console.log("total qty", totalQty);
 
           // Set the values in the unitsThisHour state based on the current timeline
           updatedUnitsThisHour[
@@ -130,7 +141,7 @@ const ProductionTable = ({
     });
 
     setUnitsThisHour(updatedUnitsThisHour);
-  }, [dateAndTimeline]);
+  }, [dateAndTimeline, currentHour]);
 
   // Define a function to highlight matching rows in other tables
   const highlightMatchingRows = (row0, row1) => {
