@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./StatTracker.css"; // Import the CSS for styling
 import RunningStatus from "./RunningStatus";
 import ProgressBar from "./ProgressBar";
+import CountUp from "react-countup";
 
 const StatTracker = ({
   timelineA,
@@ -23,13 +24,21 @@ const StatTracker = ({
   const secondsPassed = now.getMinutes() * 60 + now.getSeconds();
   const remainingSeconds = 3600 - secondsPassed;
 
-  const unitsPerSecondA = unitsThisHour.timelineB.qty / remainingSeconds;
-  const unitsPerSecondB = unitsThisHour.timelineC.qty / remainingSeconds;
-  const unitsPerSecondC = unitsThisHour.timelineD.qty / remainingSeconds;
+  const unitsPerHourA = unitsThisHour.timelineB.qty;
+  const unitsPerHourB = unitsThisHour.timelineC.qty;
+  const unitsPerHourC = unitsThisHour.timelineD.qty;
 
-  const startingQtyA = qtyA - secondsPassed * unitsPerSecondA;
-  const startingQtyB = qtyB - secondsPassed * unitsPerSecondB;
-  const startingQtyC = qtyC - secondsPassed * unitsPerSecondC;
+  const unitsPerSecondA = unitsPerHourA / remainingSeconds;
+  const unitsPerSecondB = unitsPerHourB / remainingSeconds;
+  const unitsPerSecondC = unitsPerHourC / remainingSeconds;
+
+  const startingQtyA = qtyA - unitsPerSecondA * secondsPassed;
+  const startingQtyB = qtyB - unitsPerSecondB * secondsPassed;
+  const startingQtyC = qtyC - unitsPerSecondC * secondsPassed;
+
+  const unitsMadeThisHourA = qtyA - startingQtyA;
+  const unitsMadeThisHourB = qtyB - startingQtyB;
+  const unitsMadeThisHourC = qtyC - startingQtyC;
 
   // Update the qty every second for each line
   useEffect(() => {
@@ -55,8 +64,33 @@ const StatTracker = ({
 
   // log all these values to the console
 
+  const calculateTotalUnitsByItem = () => {
+    const totalUnitsByItem = {};
+
+    // Iterate through timelineA, timelineB, and timelineC
+    [timelineA, timelineB, timelineC].forEach((timeline) => {
+      timeline.forEach((row) => {
+        const item = row[3]; // Assuming the item is in the 4th column, adjust as needed
+        const qty = row[5]; // Assuming the quantity is in the 6th column, adjust as needed
+
+        // Initialize the total for this item if it doesn't exist
+        if (!totalUnitsByItem[item]) {
+          totalUnitsByItem[item] = 0;
+        }
+
+        // Add the quantity to the total for this item
+        totalUnitsByItem[item] += qty;
+      });
+    });
+
+    return totalUnitsByItem;
+  };
+
+  // Call the function to get the total units by item
+  // const totalUnitsByItem = calculateTotalUnitsByItem();
+
   return (
-    <div className="stat-tracker mb-3 h-52 flex flex-row justify-center pl-40">
+    <div className="stat-tracker h-52 flex flex-row justify-center border-3 border-white">
       <div className="flex flex-col w-1/3 mr-10">
         <div className="">
           {unitsThisHour.timelineB.product === "CIP" ? (
@@ -74,15 +108,21 @@ const StatTracker = ({
               <div className="stat-item">
                 <p>Item: {unitsThisHour.timelineB.product}</p>
               </div>
-              <div className="w-9/12">
+              <div className="w-9/12 mt-1">
                 <ProgressBar
                   qty={qtyA}
                   totalQty={unitsThisHour.timelineB.qty}
                   message={"Units/Hour: "}
-                  startingQty={startingQtyA}
+                  startingQty={unitsMadeThisHourA}
                 />
-
-                <div className="mt-1"></div>
+                <div className="text-right text-lg mt-1">
+                  Units Created This Hour:{" "}
+                  <CountUp
+                    start={unitsMadeThisHourA}
+                    end={unitsMadeThisHourA}
+                  />{" "}
+                  / {unitsThisHour.timelineB.qty}
+                </div>
               </div>
             </div>
             <div className="">
@@ -118,15 +158,22 @@ const StatTracker = ({
               <div className="stat-item">
                 <p>Item: {unitsThisHour.timelineC.product}</p>
               </div>
+
               <div className="w-9/12">
                 <ProgressBar
                   qty={qtyB}
                   totalQty={unitsThisHour.timelineC.qty}
                   message={"Units/Hour: "}
-                  startingQty={startingQtyB}
+                  startingQty={unitsMadeThisHourB}
                 />
-
-                <div className="mt-1"></div>
+                <div className="text-right text-lg mt-1">
+                  Units Created This Hour:{" "}
+                  <CountUp
+                    start={unitsMadeThisHourB}
+                    end={unitsMadeThisHourB}
+                  />{" "}
+                  / {unitsThisHour.timelineC.qty}
+                </div>
               </div>
             </div>
             <div className="">
@@ -168,10 +215,16 @@ const StatTracker = ({
                   qty={qtyC}
                   totalQty={unitsThisHour.timelineD.qty}
                   message={"Units/Hour: "}
-                  startingQty={startingQtyC}
+                  startingQty={unitsMadeThisHourC}
                 />
-
-                <div className="mt-1"></div>
+                <div className="text-right text-lg mt-1">
+                  Units Created This Hour:{" "}
+                  <CountUp
+                    start={unitsMadeThisHourC}
+                    end={unitsMadeThisHourC}
+                  />{" "}
+                  / {unitsThisHour.timelineD.qty}
+                </div>
               </div>
             </div>
             <div className="">
@@ -180,6 +233,11 @@ const StatTracker = ({
               </div>
               <div className="stat-item">
                 <p>Total Units: {unitsThisHour.timelineD.totalQty}</p>
+              </div>
+              <div className="text-right text-xl">
+                Total Units This Hour:{" "}
+                <CountUp start={unitsMadeThisHourC} end={unitsMadeThisHourC} />{" "}
+                / {unitsThisHour.timelineD.qty}
               </div>
             </div>
           </div>

@@ -53,7 +53,6 @@ function excelDateToJSDate(excelDate) {
 }
 
 app.get('/api/excel', (req, res) => {
-  console.log('Hello from api excel')
   // Define the path to your XLSX file
   const filePath = path.join(__dirname, '/timeline_sample.xlsx')
 

@@ -1,7 +1,6 @@
 import React from "react";
 
 const DateAndTimeline = ({ dateAndTimeline }) => {
-  console.log(dateAndTimeline);
   return (
     <div>
       <table className="table-auto w-full">

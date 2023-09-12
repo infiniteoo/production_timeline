@@ -29,7 +29,7 @@ const ProductionTable = ({
 
   useEffect(() => {
     const updatedUnitsThisHour = { ...unitsThisHour };
-    console.log("updatedUnitsThisHour", updatedUnitsThisHour);
+
     const tables = [dateAndTimeline, timelineA, timelineB, timelineC];
 
     tables.forEach((table, tableIndex) => {
@@ -110,14 +110,12 @@ const ProductionTable = ({
               totalQty, // Add the totalQty to the state
             };
             setUnitsThisHour(updatedUnitsThisHour);
-            /* console.log(updatedUnitsThisHour); */
           }
         });
       });
     });
 
     setUnitsThisHour(updatedUnitsThisHour);
-    console.log("unitsThisHour", unitsThisHour);
   }, [dateAndTimeline]);
 
   // Define a function to highlight matching rows in other tables
