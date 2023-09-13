@@ -1,10 +1,6 @@
 'use client'
-import TimelineA from '../components/TimelineA'
-import TimelineB from '../components/TimelineB'
-import TimelineC from '../components/TimelineC'
-import DateAndTimeline from '../components/DateAndTimeline'
-import ProductionTable from '../components/ProductionTable'
 
+import ProductionTable from '../components/ProductionTable'
 import DataReader from '../components/DataReader'
 import { useState } from 'react'
 

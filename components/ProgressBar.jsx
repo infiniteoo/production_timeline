@@ -1,9 +1,9 @@
 import React from "react";
 import "./ProgressBar.css"; // You can create a CSS file for styling
 
-function ProgressBar({ qty, totalQty, message, startingQty }) {
+function ProgressBar({ qty, totalQty, message, startingQty, percentage }) {
   // Calculate the percentage of completion
-  const percentage = ((qty - startingQty) / totalQty) * 100;
+  // const percentage = ((qty - startingQty) / totalQty) * 100;
 
   return (
     <div className="progress-container">

@@ -20,7 +20,7 @@ const ProductionTable = ({
       const newHour =
         new Date().getHours().toString().padStart(2, "0") + ":00:00";
       setCurrentHour(newHour);
-    }, 60000); // Update every minute
+    }, 5000); // Update every minute
 
     // Clear the interval on component unmount
     return () => clearInterval(intervalId);
