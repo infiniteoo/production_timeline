@@ -273,7 +273,9 @@ const ProductionTable = ({
                       >
                         {row[3]}
                       </td>
-                      <td className="px-2 py-1  align-top w-4/6">{row[4]}</td>
+                      <td className="px-2 py-1  align-top w-4/6 truncate">
+                        {row[4]}
+                      </td>
                       <td className="px-2 py-1 align-top w-1/12">{row[5]}</td>
                     </tr>
                   ))}
@@ -317,7 +319,7 @@ const ProductionTable = ({
                       <td className={`px-2 py-1 align-top w-1/12 `}>
                         {row[3]}
                       </td>
-                      <td className="px-2 py-1 pl-10 align-top w-4/6">
+                      <td className="px-2 py-1 pl-10 align-top w-4/6 truncate">
                         {row[4]}
                       </td>
                       <td className="px-2 py-1 align-top w-1/12">{row[5]}</td>
@@ -367,7 +369,7 @@ const ProductionTable = ({
                       >
                         {row[3]}
                       </td>
-                      <td className="px-2 py-1 pl-5 align-top w-4/6">
+                      <td className="px-2 py-1 pl-5 align-top w-4/6 truncate">
                         {row[4]}
                       </td>
                       <td className="px-2 py-1 align-top w-1/12">{row[5]}</td>
