@@ -1,6 +1,6 @@
 import React from "react";
-import TimeComponent from "./TimeComponent";
-import WeatherComponent from "./WeatherComponent";
+import TimeComponent from "./TimeComponent.jsx";
+import WeatherComponent from "./WeatherComponent.jsx";
 
 const TimeAndWeather = () => {
   return (
