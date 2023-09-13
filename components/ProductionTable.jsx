@@ -91,7 +91,6 @@ const ProductionTable = ({
 
           // Update the total quantity for this timeline
           totalQty += row[5];
-          console.log("total qty", totalQty);
 
           // Set the values in the unitsThisHour state based on the current timeline
           updatedUnitsThisHour[
@@ -149,6 +148,7 @@ const ProductionTable = ({
     tables.forEach((table) => {
       table.forEach((row, index) => {
         if (
+          row &&
           row[0].trim().toLowerCase() === row0.trim().toLowerCase() &&
           row[1].trim().toLowerCase() === row1.trim().toLowerCase()
         ) {

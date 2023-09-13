@@ -4,6 +4,7 @@ import RunningStatus from "./RunningStatus";
 import ProgressBar from "./ProgressBar";
 import CountUp from "react-countup";
 import TimeAndWeather from "./TimeAndWeather";
+import { renderTimeline } from "./utils/renderTimeline";
 
 const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
   // Create state variables to track the qty for each line
@@ -11,9 +12,6 @@ const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
   const [qtyB, setQtyB] = useState(unitsThisHour.timelineC.qty);
   const [qtyC, setQtyC] = useState(unitsThisHour.timelineD.qty);
 
-  // Calculate units per second (units per hour / 3600)
-
-  // Calculate the progress of the hour that has already passed
   const now = new Date();
   const minutesPassed = now.getMinutes();
   const secondsPassed = minutesPassed * 60 + now.getSeconds();
@@ -41,7 +39,6 @@ const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
     // Calculate the interval based on unitsPerSecond
     const intervalA = setInterval(() => {
       setQtyA((prevQty) => prevQty + unitsPerSecondA);
-      console.log("qtyA", qtyA);
     }, 1000);
 
     const intervalB = setInterval(() => {
@@ -66,7 +63,7 @@ const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
     unitsMadeThisHourC,
   ]);
 
-  const renderTimeline = (
+  /*  const renderTimeline = (
     timelineData,
     startingQty,
     qty,
@@ -114,7 +111,6 @@ const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
               <div className="stat-item">
                 <p>Total Units: {timelineData.totalQty}</p>
               </div>
-              {/* search totalUnitsByItem for matching item number to timelineD.item and return totalMade and totalRemaining */}
 
               <div className="w-9/12 ml-5 ">
                 <ProgressBar
@@ -149,76 +145,9 @@ const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
         ) : null}
       </div>
     );
-  };
+  }; */
 
   // log all these values to the console
-
-  const calculateTotalUnitsByItem = () => {
-    const totalUnitsByItem = {};
-    const currentTime = new Date(); // Get the current date and time
-
-    let currentItemId = null; // Initialize the current item ID
-
-    // Iterate through timelineA, timelineB, and timelineC
-    [timelineA, timelineB, timelineC].forEach((timeline) => {
-      timeline.forEach((row) => {
-        const rowDate = new Date(row[0]); // Assuming the date is in the 1st column
-        const rowTime = row[1]; // Assuming the time is in the 2nd column
-        const item = row[3]; // Assuming the item is in the 4th column
-        const qty = row[5]; // Assuming the quantity is in the 6th column
-
-        // Check if the row's date is before or equal to the current date
-        // and the row's time is before or equal to the current time
-        if (
-          rowDate <= currentTime &&
-          rowTime <= currentTime.toLocaleTimeString()
-        ) {
-          // Initialize the total for this item if it doesn't exist
-          if (!totalUnitsByItem[item]) {
-            totalUnitsByItem[item] = {
-              totalMade: 0,
-              totalRemaining: 0,
-            };
-          }
-
-          // Check if the item has changed
-          if (currentItemId !== item) {
-            // Reset the totalMade and totalRemaining when a new item is encountered
-            totalUnitsByItem[item].totalMade = 0;
-            totalUnitsByItem[item].totalRemaining = 0;
-            currentItemId = item;
-          }
-
-          // Add the quantity to the total made for this item
-          totalUnitsByItem[item].totalMade += qty;
-        } else {
-          // The row's date and time are in the future, so add the quantity to total remaining
-          if (!totalUnitsByItem[item]) {
-            totalUnitsByItem[item] = {
-              totalMade: 0,
-              totalRemaining: 0,
-            };
-          }
-
-          // Check if the item has changed
-          if (currentItemId !== item) {
-            // Reset the totalMade and totalRemaining when a new item is encountered
-            totalUnitsByItem[item].totalMade = 0;
-            totalUnitsByItem[item].totalRemaining = 0;
-            currentItemId = item;
-          }
-
-          totalUnitsByItem[item].totalRemaining += qty;
-        }
-      });
-    });
-
-    return totalUnitsByItem;
-  };
-
-  // Call the function to get the total units by item
-  const totalUnitsByItem = calculateTotalUnitsByItem();
-  console.log(totalUnitsByItem);
 
   return (
     <div className="stat-tracker flex flex-row justify-center border-3 border-white">
@@ -237,6 +166,9 @@ const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
         />
         {renderTimeline(
           unitsThisHour.timelineB,
+          timelineA,
+          timelineB,
+          timelineC,
           startingQtyA,
           qtyA,
           unitsMadeThisHourA
@@ -254,6 +186,9 @@ const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
         />
         {renderTimeline(
           unitsThisHour.timelineC,
+          timelineA,
+          timelineB,
+          timelineC,
           startingQtyB,
           qtyB,
           unitsMadeThisHourB
@@ -271,6 +206,9 @@ const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
         />
         {renderTimeline(
           unitsThisHour.timelineD,
+          timelineA,
+          timelineB,
+          timelineC,
           startingQtyC,
           qtyC,
           unitsMadeThisHourC
