@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./StatTracker.css"; // Import the CSS for styling
 import RunningStatus from "./RunningStatus";
-import ProgressBar from "./ProgressBar";
-import CountUp from "react-countup";
 import TimeAndWeather from "./TimeAndWeather";
 import { renderTimeline } from "./utils/renderTimeline";
 

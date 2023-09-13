@@ -195,17 +195,17 @@ const ProductionTable = ({
         setUnitsThisHour={setUnitsThisHour}
         unitsThisHour={unitsThisHour}
       />
-      <table className=" table-fixed rounded-lg shadow-lg">
+      <table className=" table-fixed rounded-lg shadow-lg ">
         <tbody>
           <tr>
             <td className="w-1/12 p-2 border-r">
-              <table className="w-52 min-h-[400px] rounded-lg shadow-lg">
+              <table className="w-1/12 min-h-[400px] rounded-lg shadow-lg">
                 <thead>
                   <tr>
-                    <th className="px-2 py-1 text-left bg-blue-500 text-white top-0 sticky">
+                    <th className="px-2 py-1 text-left bg-blue-500 text-white top-0 sticky ">
                       Date
                     </th>
-                    <th className="px-2 py-1 text-left bg-blue-500 text-white top-0 sticky">
+                    <th className="px-2 py-1 text-left bg-blue-500 text-white top-0 sticky ">
                       Time
                     </th>
                   </tr>
@@ -225,14 +225,14 @@ const ProductionTable = ({
                         clearMatchingRowHighlights(row[0], row[1]);
                       }}
                     >
-                      <td className="px-2 py-1 align-top">{row[0]}</td>
-                      <td className="px-2 py-1 align-top">{row[1]}</td>
+                      <td className="px-2 py-1 align-top  ">{row[0]}</td>
+                      <td className="px-2 py-1 align-top ">{row[1]}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </td>
-            <td className="w-1/4 p-2 border-r">
+            <td className=" p-2 border-r" style={{ width: "30.56%" }}>
               <table className="min-h-[400px] rounded-lg shadow-lg  ">
                 <thead>
                   <tr>
@@ -280,7 +280,7 @@ const ProductionTable = ({
                 </tbody>
               </table>
             </td>
-            <td className="w-1/4 p-2 border-r">
+            <td className="p-2 border-r" style={{ width: "30.56%" }}>
               <table className="table-fixed min-h-[400px] rounded-lg shadow-lg">
                 <thead>
                   <tr>
@@ -326,7 +326,7 @@ const ProductionTable = ({
                 </tbody>
               </table>
             </td>
-            <td className="w-1/4 p-2 border-r">
+            <td className=" p-2 border-r" style={{ width: "30.56%" }}>
               <table className="table-fixed min-h-[400px] rounded-lg shadow-lg">
                 <thead>
                   <tr>

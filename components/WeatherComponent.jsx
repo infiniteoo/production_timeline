@@ -33,7 +33,7 @@ function WeatherComponent({ apiKey, city }) {
     <div className="flex flex-col">
       <div className="weather-component flex flex-row">
         <img
-          width="60px"
+          width="auto"
           className=""
           src={`http://openweathermap.org/img/wn/${weatherIcon}.png`}
           alt="Weather Icon"
@@ -44,7 +44,7 @@ function WeatherComponent({ apiKey, city }) {
           </p>
           <p className="text-sm">{weatherDescription}</p>
         </div>
-        <div className="flex flex-col ml-4">
+        <div className="flex flex-col ml-2">
           <p className="text-sm">High: {Math.round(highTempFahrenheit)}°F</p>
           <p className="text-sm ml-0.5">
             {" "}

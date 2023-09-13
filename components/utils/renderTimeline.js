@@ -43,9 +43,9 @@ export const renderTimeline = (
               <ProgressBar
                 qty={qty}
                 totalQty={timelineData.qty}
-                message={'Units/Hour: '}
+                message={'Units/Hour:'}
                 startingQty={startingQty}
-                percentage={(qty / startingQty / timelineData.totalQty) * 100}
+                percentage={(unitsMadeThisHour / timelineData.qty) * 100}
               />
               <div className="text-right text-sm mt-1">
                 Units Created This Hour:{' '}
@@ -71,22 +71,30 @@ export const renderTimeline = (
                     : 0
                 }
                 message={'Units/Total: '}
-                startingQty={
-                  totalUnitsByItem[timelineData.item]
-                    ? totalUnitsByItem[timelineData.item].totalRemaining +
-                      startingQty
-                    : 0
-                }
                 percentage={
-                  (startingQty / totalUnitsByItem[timelineData.item]
-                    ? totalUnitsByItem[timelineData.item].totalMade
-                    : 0) * 100
+                  totalUnitsByItem[timelineData.item]
+                    ? (qty / totalUnitsByItem[timelineData.item].totalMade) *
+                      100
+                    : 0
                 }
               />
               <div className="text-right text-sm mt-1">
-                Total Units Created: <CountUp start={qty} end={qty} /> /{' '}
+                Total Units Created:{' '}
+                <CountUp
+                  start={
+                    totalUnitsByItem[timelineData.item]
+                      ? totalUnitsByItem[timelineData.item].totalMade
+                      : qty
+                  }
+                  end={
+                    totalUnitsByItem[timelineData.item]
+                      ? totalUnitsByItem[timelineData.item].totalMade
+                      : qty
+                  }
+                />{' '}
+                /{' '}
                 {totalUnitsByItem[timelineData.item]
-                  ? totalUnitsByItem[timelineData.item].totalMade
+                  ? totalUnitsByItem[timelineData.item].totalToBeCreated
                   : 0}
               </div>
             </div>

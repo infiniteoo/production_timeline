@@ -9,9 +9,6 @@ export default function Home() {
   const [timelineB, setTimelineB] = useState([])
   const [timelineC, setTimelineC] = useState([])
   const [dateAndTimeline, setDateAndTimeline] = useState([[]])
-  const [fakeCurrentDate, setFakeCurrentDate] = useState(
-    new Date('2023/08/28 12:00:00'),
-  )
 
   return (
     <main className="  text-lg">
