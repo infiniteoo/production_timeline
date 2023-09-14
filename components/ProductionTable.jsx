@@ -157,7 +157,7 @@ const ProductionTable = ({
         setUnitsThisHour={setUnitsThisHour}
         unitsThisHour={unitsThisHour}
       />
-      <table className=" table-fixed rounded-lg shadow-lg ">
+      <table className=" table-fixed rounded-lg shadow-lg">
         <tbody>
           <tr>
             <td className="w-1/12 p-2 border-r">
