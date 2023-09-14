@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import StatTracker from "./StatTracker";
+import {
+  highlightMatchingRows,
+  clearMatchingRowHighlights,
+} from "./utils/rowHighlighter.js";
 
 const ProductionTable = ({
   timelineA,
@@ -142,49 +146,7 @@ const ProductionTable = ({
     setUnitsThisHour(updatedUnitsThisHour);
   }, [dateAndTimeline, currentHour]);
 
-  // Define a function to highlight matching rows in other tables
-  const highlightMatchingRows = (row0, row1) => {
-    const tables = [dateAndTimeline, timelineA, timelineB, timelineC];
-    tables.forEach((table) => {
-      table.forEach((row, index) => {
-        if (
-          row &&
-          row[0].trim().toLowerCase() === row0.trim().toLowerCase() &&
-          row[1].trim().toLowerCase() === row1.trim().toLowerCase()
-        ) {
-          // Apply a class to highlight the matching row
-          const trElements = document.querySelectorAll(`.table-row-${index}`);
-          trElements.forEach((trElement) => {
-            trElement.classList.add("bg-yellow-300");
-
-            trElement.classList.add("transition-transform");
-          });
-        }
-      });
-    });
-  };
-
-  // Define a function to clear highlights in other tables
-  const clearMatchingRowHighlights = (row0, row1) => {
-    const tables = [dateAndTimeline, timelineA, timelineB, timelineC];
-    tables.forEach((table) => {
-      table.forEach((row, index) => {
-        if (
-          row[0].trim().toLowerCase() === row0.trim().toLowerCase() &&
-          row[1].trim().toLowerCase() === row1.trim().toLowerCase()
-        ) {
-          // Apply a class to highlight the matching row
-          const trElements = document.querySelectorAll(`.table-row-${index}`);
-          trElements.forEach((trElement) => {
-            trElement.classList.remove("bg-yellow-300");
-
-            trElement.classList.remove("transition-transform");
-          });
-        }
-      });
-    });
-  };
-
+  const tables = [dateAndTimeline, timelineA, timelineB, timelineC];
   return (
     <div className="justify-between">
       <StatTracker
@@ -219,10 +181,10 @@ const ProductionTable = ({
                         index % 2 === 0 ? "bg-gray-100" : "bg-white"
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
-                        highlightMatchingRows(row[0], row[1]);
+                        highlightMatchingRows(tables, row[0], row[1]);
                       }}
                       onMouseLeave={() => {
-                        clearMatchingRowHighlights(row[0], row[1]);
+                        clearMatchingRowHighlights(tables, row[0], row[1]);
                       }}
                     >
                       <td className="px-2 py-1 align-top  ">{row[0]}</td>
@@ -260,10 +222,10 @@ const ProductionTable = ({
                           : ` ${row[4] === "CIP" ? "bg-red-200" : "bg-white"}`
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
-                        highlightMatchingRows(row[0], row[1]);
+                        highlightMatchingRows(tables, row[0], row[1]);
                       }}
                       onMouseLeave={() => {
-                        clearMatchingRowHighlights(row[0], row[1]);
+                        clearMatchingRowHighlights(tables, row[0], row[1]);
                       }}
                     >
                       <td
@@ -310,10 +272,10 @@ const ProductionTable = ({
                           : `${row[4] === "CIP" ? "bg-red-200" : "bg-white "}`
                       } hover:bg-yellow-200 cursor-pointer `}
                       onMouseEnter={() => {
-                        highlightMatchingRows(row[0], row[1]);
+                        highlightMatchingRows(tables, row[0], row[1]);
                       }}
                       onMouseLeave={() => {
-                        clearMatchingRowHighlights(row[0], row[1]);
+                        clearMatchingRowHighlights(tables, row[0], row[1]);
                       }}
                     >
                       <td className={`px-2 py-1 align-top w-1/12 `}>
@@ -356,10 +318,10 @@ const ProductionTable = ({
                           : ` ${row[4] === "CIP" ? "bg-red-200" : "bg-white"}`
                       } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
-                        highlightMatchingRows(row[0], row[1]);
+                        highlightMatchingRows(tables, row[0], row[1]);
                       }}
                       onMouseLeave={() => {
-                        clearMatchingRowHighlights(row[0], row[1]);
+                        clearMatchingRowHighlights(tables, row[0], row[1]);
                       }}
                     >
                       <td
