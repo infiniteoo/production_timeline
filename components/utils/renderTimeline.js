@@ -76,6 +76,7 @@ export const renderTimeline = (
               <div className="text-right text-sm mt-1">
                 Total Units Created:{' '}
                 <CountUp
+                  showUnitsLeft={true}
                   start={
                     totalUnitsByItem[timelineData.item]
                       ? totalUnitsByItem[timelineData.item].totalMade

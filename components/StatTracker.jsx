@@ -6,6 +6,21 @@ import { renderTimeline } from "./utils/renderTimeline";
 import dynamicCounter from "./DynamicCounter";
 
 const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
+  const [currentHour, setCurrentHour] = useState(
+    new Date().getHours().toString().padStart(2, "0") + ":00:00"
+  );
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const newHour =
+        new Date().getHours().toString().padStart(2, "0") + ":00:00";
+      setCurrentHour(newHour);
+    }, 5000); // Update every minute
+
+    // Clear the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [currentHour]);
+
   // Create state variables to track the qty for each line
   const [qtyA, setQtyA] = useState(unitsThisHour.timelineB.qty);
   const [qtyB, setQtyB] = useState(unitsThisHour.timelineC.qty);

@@ -3,7 +3,7 @@ import "./ProgressBar.css"; // You can create a CSS file for styling
 import dynamicCounter from "./DynamicCounter";
 import CountUp from "react-countup";
 
-function ProgressBar({ message, totalQty }) {
+function ProgressBar({ message, totalQty, showUnitsLeft = false }) {
   let progress = dynamicCounter(totalQty);
 
   // Checking if progress and message exist and are valid
@@ -14,6 +14,8 @@ function ProgressBar({ message, totalQty }) {
   const totalUnits = totalQty;
 
   const unitsCreated = (percent / 100) * totalUnits;
+
+  const displayValue = showUnitsLeft ? unitsLeft : unitsCreated;
 
   return (
     <div>
@@ -30,8 +32,8 @@ function ProgressBar({ message, totalQty }) {
         )}
       </div>
       <div className="text-right text-sm mt-1">
-        Units Created This Hour:{" "}
-        <CountUp start={unitsCreated} end={unitsCreated} /> / {totalQty}{" "}
+        {showUnitsLeft ? "Units Left This Hour: " : "Units Created This Hour: "}
+        <CountUp start={displayValue} end={displayValue} /> / {totalQty}{" "}
       </div>
     </div>
   );
