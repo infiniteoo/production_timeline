@@ -1,6 +1,7 @@
 import ProgressBar from '../ProgressBar'
 import CountUp from 'react-countup'
 import { calculateTotalUnitsByItem } from './calculateTotalUnitsByItem'
+import dynamicCounter from '../DynamicCounter'
 
 export const renderTimeline = (
   timelineData,

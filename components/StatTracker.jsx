@@ -3,6 +3,7 @@ import "./StatTracker.css"; // Import the CSS for styling
 import RunningStatus from "./RunningStatus";
 import TimeAndWeather from "./TimeAndWeather";
 import { renderTimeline } from "./utils/renderTimeline";
+import dynamicCounter from "./DynamicCounter";
 
 const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
   // Create state variables to track the qty for each line
