@@ -20,7 +20,6 @@ export const renderTimeline = (
 
     // Assuming timelineA is the appropriate property
   })
-  /* console.log('totalUnitsByItem', totalUnitsByItem) */
 
   if (timelineData.product === 'CIP') {
     return (
@@ -48,11 +47,6 @@ export const renderTimeline = (
                 startingQty={startingQty}
                 percentage={(unitsMadeThisHour / timelineData.qty) * 100}
               />
-              <div className="text-right text-sm mt-1">
-                Units Created This Hour:{' '}
-                <CountUp start={unitsMadeThisHour} end={unitsMadeThisHour} /> /{' '}
-                {timelineData.qty}
-              </div>
             </div>
           </div>
           <div className="flex flex-row">
