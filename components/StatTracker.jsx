@@ -71,11 +71,12 @@ const StatTracker = ({ timelineA, timelineB, timelineC, unitsThisHour }) => {
     };
   }, [unitsPerSecondA, unitsPerSecondB, unitsPerSecondC]);
 
-  useEffect(() => {}, [
-    unitsMadeThisHourA,
-    unitsMadeThisHourB,
-    unitsMadeThisHourC,
-  ]);
+  // When currentHour changes, reset the state of the component
+  useEffect(() => {
+    setQtyA(unitsThisHour.timelineB.qty);
+    setQtyB(unitsThisHour.timelineC.qty);
+    setQtyC(unitsThisHour.timelineD.qty);
+  }, [currentHour, unitsThisHour]);
 
   return (
     <div className="stat-tracker flex flex-row justify-center border-3 border-white">

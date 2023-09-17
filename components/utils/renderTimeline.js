@@ -1,7 +1,6 @@
 import ProgressBar from '../ProgressBar'
 import CountUp from 'react-countup'
 import { calculateTotalUnitsByItem } from './calculateTotalUnitsByItem'
-import dynamicCounter from '../DynamicCounter'
 
 export const renderTimeline = (
   timelineData,
@@ -34,10 +33,14 @@ export const renderTimeline = (
           {' '}
           <div className="flex flex-row mt-2 w-full ">
             <div className="stat-item">
-              <p>Item Number: {timelineData.item}</p>
+              <p className="text-md">
+                Item Number:{' '}
+                <span className="text-lg">{timelineData.item}</span>
+              </p>
             </div>
-            <div className="stat-item">
-              <p>Item: {timelineData.product}</p>
+            <div className="stat-item flex flex-col">
+              <p className="text-md">Item:</p>
+              <p className="text-lg">{timelineData.product}</p>
             </div>
             <div className="w-9/12">
               <ProgressBar
@@ -49,50 +52,17 @@ export const renderTimeline = (
               />
             </div>
           </div>
-          <div className="flex flex-row">
+          <div className="flex flex-row justify-end">
             <div className="stat-item">
-              <p>Units/Hour: {timelineData.qty}</p>
+              <p className="text-lg text-right">
+                {' '}
+                Units/Hour: {timelineData.qty}
+              </p>
             </div>
             <div className="stat-item">
-              <p>Total Units: {timelineData.totalQty}</p>
-            </div>
-
-            <div className="w-9/12 ml-5 ">
-              <ProgressBar
-                qty={qty}
-                totalQty={
-                  totalUnitsByItem[timelineData.item]
-                    ? totalUnitsByItem[timelineData.item].totalMade
-                    : 0
-                }
-                message={'Units/Total: '}
-                percentage={
-                  totalUnitsByItem[timelineData.item]
-                    ? (qty / totalUnitsByItem[timelineData.item].totalMade) *
-                      100
-                    : 0
-                }
-              />
-              <div className="text-right text-sm mt-1">
-                Total Units Created:{' '}
-                <CountUp
-                  showUnitsLeft={true}
-                  start={
-                    totalUnitsByItem[timelineData.item]
-                      ? totalUnitsByItem[timelineData.item].totalMade
-                      : qty
-                  }
-                  end={
-                    totalUnitsByItem[timelineData.item]
-                      ? totalUnitsByItem[timelineData.item].totalMade
-                      : qty
-                  }
-                />{' '}
-                /{' '}
-                {totalUnitsByItem[timelineData.item]
-                  ? totalUnitsByItem[timelineData.item].totalToBeCreated
-                  : 0}
-              </div>
+              <p className="text-lg text-right">
+                Total Units: {timelineData.totalQty}
+              </p>
             </div>
           </div>
         </div>
