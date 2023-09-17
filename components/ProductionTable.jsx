@@ -195,7 +195,7 @@ const ProductionTable = ({
               </table>
             </td>
             <td className=" p-2 border-r" style={{ width: "30.56%" }}>
-              <table className="min-h-[400px] rounded-lg shadow-lg  ">
+              <table className="min-h-[400px] rounded-lg shadow-lg">
                 <thead>
                   <tr>
                     <th className="px-2 py-1 text-left bg-green-500 text-white top-0 sticky ">
@@ -215,7 +215,9 @@ const ProductionTable = ({
                       key={index}
                       id={`table-row-${index}`}
                       className={`table-row-${index} ${
-                        index % 2 === 0
+                        row[4] === "Change over"
+                          ? "bg-blue-300 text-white" // Add a blue background for "change over"
+                          : index % 2 === 0
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500" : ""
                             }`
@@ -265,12 +267,14 @@ const ProductionTable = ({
                       key={index}
                       id={`table-row-${index}`}
                       className={`table-row-${index} ${
-                        index % 2 === 0
+                        row[4] === "Change over"
+                          ? "bg-blue-300 text-white" // Add a blue background for "change over"
+                          : index % 2 === 0
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500" : ""
                             }`
-                          : `${row[4] === "CIP" ? "bg-red-200" : "bg-white "}`
-                      } hover:bg-yellow-200 cursor-pointer `}
+                          : ` ${row[4] === "CIP" ? "bg-red-200" : "bg-white"}`
+                      } hover:bg-yellow-200 cursor-pointer`}
                       onMouseEnter={() => {
                         highlightMatchingRows(tables, row[0], row[1]);
                       }}
@@ -311,7 +315,9 @@ const ProductionTable = ({
                       key={index}
                       id={`table-row-${index}`}
                       className={`table-row-${index} ${
-                        index % 2 === 0
+                        row[4] === "Change over"
+                          ? "bg-blue-300 text-white" // Add a blue background for "change over"
+                          : index % 2 === 0
                           ? `bg-gray-100 ${
                               row[4] === "CIP" ? "bg-red-500" : ""
                             }`
